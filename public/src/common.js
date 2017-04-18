@@ -1,4 +1,4 @@
-define(["jquery","cookie"],function(){
+define(["jquery","template","cookie"],function($,template){
 
 
 // 检测用户是否登录，如果没有登录则跳转至登录页
@@ -22,7 +22,7 @@ define(["jquery","cookie"],function(){
 // 浏览器提供了location这个BOM对象，可以获得地址的信息
 // for(var key in location) {
 //     console.log(key + '->' + location[key])
-// }
+// }    
 
 if(document.cookie.indexOf('PHPSESSID') == -1 && location.pathname != '/login') {
     location.href = '/login';
@@ -31,7 +31,26 @@ if(document.cookie.indexOf('PHPSESSID') == -1 && location.pathname != '/login') 
 // 获取用户的登录信息(被记录在了cookie中)
 var loginfo = $.cookie('loginfo') && JSON.parse($.cookie('loginfo'));
 
-console.log(loginfo)
+// console.log(loginfo);
+
+
+//处理侧边栏的个人资料
+// var source='<div class="avatar img-circle">\
+//         <img src="<%= tc_avatar %>">\
+//     </div>\
+//     <h4><%= tc_name %></h4>';
+    
+    var source = '<div class="avatar img-circle">\
+                    <img src="<%= tc_avatar %>">\
+                </div>\
+                <h4><%= tc_name %></h4>';
+// var render=template.compile(source);
+var render = template.compile(source);
+var html=render(loginfo);
+console.log(html);
+$(".profile").append(html);
+
+
 
 $('#logout').on('click', function () {
 
