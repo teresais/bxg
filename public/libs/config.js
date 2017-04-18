@@ -9,4 +9,4 @@ requirejs.config({
 	}
 })
 
-require(["./src/login","./src/logout"]);
+require(["./src/logout"]);
